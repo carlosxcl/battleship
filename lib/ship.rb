@@ -7,7 +7,8 @@ class Ship
     @state = []
     @coord = []
   end
- def sunk?
+
+  def sunk?
     sunk
   end
 

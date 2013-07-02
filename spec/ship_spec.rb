@@ -43,20 +43,23 @@ describe Ship do
     carrier.set_coord_array("a1","a2","a3","a4","a5")
     carrier.set_state_array
     carrier.hit("a1")
-    #puts carrier.state.inspect
+    carrier.hit("a2")
+
     expect(carrier.state).to eq [["a1",0],["a2",1],["a3",1],["a4",1],["a5",1]]
   end
 
 
-  xit "if all parts are hit, it should sink" do
-    ship = Ship.new("Battleship")
-    ship.set_state
-    ship.hit(0)
-    ship.hit(1)
-    ship.hit(2)
-    ship.hit(3)
-    expect(ship.sunk?).to be_true
-  end
+  # it "if all parts are hit, it should sink" do
+  #   carrier.set_coord_array("a1","a2","a3","a4","a5")
+  #   carrier.set_state_array
+  #   carrier.hit("a1")
+  #   carrier.hit("a2")
+  #   carrier.hit("a3")
+  #   carrier.hit("a4")
+  #   carrier.hit("a5")
+  #   puts carrier.state.inspect
+    # expect(carrier.sunk?).to be_true
+  # end
 
   # xit "can be given coordinates" do
   #   ship = Ship.new("Battleship")
