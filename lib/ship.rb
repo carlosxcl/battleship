@@ -1,19 +1,13 @@
 class Ship
-  attr :sunk, :type, :state
+  attr :sunk, :type, :state, :length, :coord
   def initialize(type = "Default")
     @sunk = false
     @type = type
-    @state = [] #ship_array(type)
-    @type_length = {
-      "Carrier" => [0,0,0,0,0] ,
-      "Battleship" => [0,0,0,0] ,
-      "Submarine" => [0,0,0] ,
-      "Destroyer" => [0,0,0] ,
-      "Patrol" => [0,0],
-      "Default" => [0]}
+    @length = 0
+    @state = []
+    @coord = []
   end
-
-  def sunk?
+ def sunk?
     sunk
   end
 
@@ -25,23 +19,61 @@ class Ship
     @type_length[type]
   end
 
-  def length(type)
-    @type_length[type].length
+  def hit?(coordinate)
+    @state[0].include?(coordinate)
   end
 
-  def ship_array(type)
-    @type_length[type]
+  def hit(coordinate)
+    position = @state[0].index(coordinate)
+    @state[position][1] = 0
   end
 
-  def set_state
-    @state = ship_array(type)
+
+  def set_coord_array(*args)
+    args.each{|co| @coord << [co,1] }
+  end
+  def set_state_array
+    @state = @coord
   end
 
-  def hit(index)
-    @state[index] = 1
-    if !@state.include? 0
-     sink
-    end
-  end
 
 end
+
+class Carrier < Ship
+
+  @hit = [0,0,0,0,0]
+  @state = []
+
+  def initialize
+    super
+    @length = 5
+  end
+
+
+end
+
+
+
+
+# @type_length = {
+#       "Carrier" => [0,0,0,0,0] ,
+#       "Battleship" => [0,0,0,0] ,
+#       "Submarine" => [0,0,0] ,
+#       "Destroyer" => [0,0,0] ,
+#       "Patrol" => [0,0],
+#       "Default" => [0]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

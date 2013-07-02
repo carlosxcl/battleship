@@ -2,6 +2,7 @@ require 'ship'
 
 describe Ship do
   let (:ship) {Ship.new}
+  let (:carrier) {Carrier.new}
 
   it "should return false to sunk?" do
     expect(ship.sunk?).to be_false
@@ -12,32 +13,42 @@ describe Ship do
     expect(ship.sunk?).to be_true
   end
 
-  it "should have a type_length" do
-    expect(ship.type_length(ship.type)).not_to be nil
+  it "should have a length" do
+    expect(carrier.length).not_to be nil
   end
 
-  it "a battleship should have a lenght of 4" do
-    expect(ship.length("Battleship")).to eq 4
+  it "a carrier should have a lenght of 5" do
+    expect(carrier.length).to eq 5
   end
 
   it "a battelship should have an array named state" do
     expect(ship.state).to be_an Array
   end
 
-  it "can have its state set to unexploded" do
-    ship = Ship.new("Battleship")
-    ship.set_state
-    expect(ship.state).to eq [0,0,0,0]
+  it 'can have a default state set' do
+    carrier.set_coord_array("a1","a2","a3","a4","a5")
+    carrier.set_state_array
+    #puts carrier.state.inspect
+    expect(carrier.coord).to eq [["a1",1],["a2",1],["a3",1],["a4",1],["a5",1]]
   end
 
-  it "can change its state to hit" do
-    ship = Ship.new("Battleship")
-    ship.set_state
-    ship.hit(0)
-    expect(ship.state).to eq [1,0,0,0]
+  it "can recognise a hit" do
+    carrier.set_coord_array("a1","a2","a3","a4","a5")
+    carrier.set_state_array
+    expect(carrier.hit?("a1")).to be_true
+    #expect(carrier.coord).to eq [["a1",0],["a2",1],["a3",1],["a4",1],["a5",1]]
   end
 
-  it "if all parts are hit, it should sink" do
+  it "can set a ship bit to hit" do
+    carrier.set_coord_array("a1","a2","a3","a4","a5")
+    carrier.set_state_array
+    carrier.hit("a1")
+    #puts carrier.state.inspect
+    expect(carrier.state).to eq [["a1",0],["a2",1],["a3",1],["a4",1],["a5",1]]
+  end
+
+
+  xit "if all parts are hit, it should sink" do
     ship = Ship.new("Battleship")
     ship.set_state
     ship.hit(0)
