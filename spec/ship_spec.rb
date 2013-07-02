@@ -47,4 +47,11 @@ describe Ship do
     expect(ship.sunk?).to be_true
   end
 
+  # xit "can be given coordinates" do
+  #   ship = Ship.new("Battleship")
+  #   ship.set_state
+  #   ship.
+
+
+
 end
