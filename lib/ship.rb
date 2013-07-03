@@ -1,10 +1,10 @@
 class Ship
   attr :sunk, :type, :state, :length, :coord
-  def initialize(type = "Default")
+  def initialize
     @sunk = false
     @type = type
     @length = 0
-    @state = []
+    @state = Hash.new
     @coord = []
   end
 
@@ -21,60 +21,26 @@ class Ship
   end
 
   def hit?(coordinate)
-    @state[0].include?(coordinate)
+    if @state[coordinate]
+      true
+    end
   end
 
   def hit(coordinate)
-    position = @state[0].index(coordinate)
-    @state[position][1] = 0
+    @state[coordinate] = 0
+    if !@state.has_value?(1)
+      sink
+    end
   end
-
 
   def set_coord_array(*args)
-    args.each{|co| @coord << [co,1] }
-  end
-  def set_state_array
-    @state = @coord
+    args.each{|co| @coord << co }
   end
 
+  def set_state_array(*args)
+    args.each do|co|
+      @state[co] = 1
+    end
+  end
 
 end
-
-class Carrier < Ship
-
-  @hit = [0,0,0,0,0]
-  @state = []
-
-  def initialize
-    super
-    @length = 5
-  end
-
-
-end
-
-
-
-
-# @type_length = {
-#       "Carrier" => [0,0,0,0,0] ,
-#       "Battleship" => [0,0,0,0] ,
-#       "Submarine" => [0,0,0] ,
-#       "Destroyer" => [0,0,0] ,
-#       "Patrol" => [0,0],
-#       "Default" => [0]}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
